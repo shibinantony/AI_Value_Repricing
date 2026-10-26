@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you utilize this intellectual property, reference architecture, or operating framework in your research, enterprise transformation, or publications, please cite it as below."
+authors:
+  - family-names: "Boban"
+    given-names: "Shibin Antony"
+    affiliation: "Executive AI Director & Enterprise Architect"
+    orcid: "https://orcid.org/0009-0000-0000-0000"
+title: "The Sovereign Enterprise AI Control Plane & Value Repricing Framework (SEAC-VR)"
+version: 1.0.0
+date-released: 2026-10-26
+url: "https://github.com/shibinantony/AI_Value_Repricing"
+repository-code: "https://github.com/shibinantony/AI_Value_Repricing"
+keywords:
+  - "Enterprise AI"
+  - "AI Value Repricing"
+  - "Sovereign Control Plane"
+  - "Agentic AI"
+  - "FinOps"
+  - "Earnings Quality"
+  - "Responsible AI"
+  - "Non-Human Identity Governance"
+  - "Rajiv Memani"
+  - "EY India"
+  - "ISO 42001"
+  - "NIST AI RMF"
+license: Apache-2.0
+abstract: >-
+  The Sovereign Enterprise AI Control Plane (SEAC-VR) is a vendor-neutral reference architecture and executive operating model designed to decouple enterprise Earnings Quality, reusable institutional IP, and runtime zero-trust governance from underlying frontier foundation model volatility, SaaS seat double-taxation, and IT services effort deflation.

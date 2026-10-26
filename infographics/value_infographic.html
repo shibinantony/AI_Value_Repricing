@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, initial-scale=1.0">
+<title>Infographic: Evolution of Enterprise AI Value Creation</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 1920px;
+  height: 1080px;
+  background: #070913;
+  color: #F8FAFC;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 34px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+/* Header */
+.header {
+  border-bottom: 2px solid #1E293B;
+  padding-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.header-left h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+.header-left h1 span {
+  color: #38BDF8;
+}
+.header-left p {
+  font-size: 14px;
+  color: #94A3B8;
+  margin-top: 4px;
+  font-weight: 500;
+}
+.header-badge {
+  background: #111827;
+  border: 1px solid #334155;
+  border-left: 4px solid #10B981;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-align: right;
+}
+.header-badge .badge-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #34D399;
+  font-weight: 700;
+}
+.header-badge .badge-sub {
+  font-size: 13px;
+  color: #E2E8F0;
+  font-weight: 600;
+  margin-top: 2px;
+}
+/* Infographic Value Comparison Matrix (3 Columns) */
+.matrix-grid {
+  display: flex;
+  gap: 24px;
+  margin-top: 18px;
+  flex: 1;
+}
+.value-col {
+  flex: 1;
+  background: #111827;
+  border-radius: 8px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.col-legacy {
+  border: 1.5px solid #EF4444;
+  background: linear-gradient(180deg, rgba(239,68,68,0.10) 0%, rgba(17,24,39,0.96) 100%);
+}
+.col-traditional {
+  border: 1.5px solid #F59E0B;
+  background: linear-gradient(180deg, rgba(245,158,11,0.10) 0%, rgba(17,24,39,0.96) 100%);
+}
+.col-sovereign {
+  border: 2px solid #0EA5E9;
+  background: linear-gradient(180deg, rgba(14,165,233,0.16) 0%, rgba(16,185,129,0.10) 100%);
+  box-shadow: 0 0 30px rgba(14, 165, 233, 0.16);
+}
+.col-header {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 12px;
+  text-align: center;
+}
+.col-tag {
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.col-legacy .col-tag { background: rgba(239,68,68,0.25); color: #FCA5A5; }
+.col-traditional .col-tag { background: rgba(245,158,11,0.25); color: #FCD34D; }
+.col-sovereign .col-tag { background: rgba(56,189,248,0.25); color: #38BDF8; }
+.col-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+.col-subtitle {
+  font-size: 11.5px;
+  color: #94A3B8;
+  margin-top: 4px;
+}
+/* Infographic Value Metrics Stack */
+.metrics-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 14px 0;
+}
+.metric-card {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid #1E293B;
+  border-radius: 6px;
+  padding: 12px 16px;
+}
+.col-legacy .metric-card { border-left: 4px solid #EF4444; }
+.col-traditional .metric-card { border-left: 4px solid #F59E0B; }
+.col-sovereign .metric-card { border-left: 4px solid #0EA5E9; background: rgba(15, 23, 42, 0.96); }
+.metric-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.metric-value-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.metric-number {
+  font-size: 20px;
+  font-weight: 900;
+  color: #FFFFFF;
+}
+.col-legacy .metric-number { color: #F87171; }
+.col-traditional .metric-number { color: #FBBF24; }
+.col-sovereign .metric-number { color: #38BDF8; }
+.metric-trend {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.trend-down { background: rgba(239,68,68,0.2); color: #F87171; }
+.trend-warn { background: rgba(245,158,11,0.2); color: #FBBF24; }
+.trend-up { background: rgba(16,185,129,0.2); color: #34D399; }
+.metric-desc {
+  font-size: 11px;
+  color: #CBD5E1;
+  margin-top: 4px;
+  line-height: 1.35;
+}
+.col-result {
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 11px;
+  text-align: center;
+  font-weight: 700;
+}
+.col-legacy .col-result {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.35);
+  color: #FCA5A5;
+}
+.col-traditional .col-result {
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.35);
+  color: #FCD34D;
+}
+.col-sovereign .col-result {
+  background: rgba(14,165,233,0.16);
+  border: 1px solid rgba(56,189,248,0.45);
+  color: #38BDF8;
+}
+/* Bottom Value Summary Strip */
+.value-summary-strip {
+  margin-top: 14px;
+  background: #111827;
+  border: 1px solid #1E293B;
+  border-radius: 6px;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vs-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.vs-icon {
+  font-size: 20px;
+  font-weight: 900;
+  color: #38BDF8;
+}
+.vs-text {
+  font-size: 11px;
+  color: #E2E8F0;
+  line-height: 1.35;
+}
+.vs-text strong {
+  color: #FFFFFF;
+  display: block;
+  font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>INFOGRAPHIC: EVOLUTION OF <span>ENTERPRISE AI VALUE CREATION</span></h1>
+    <p>Boardroom Financial Shift: From Legacy Effort Arbitrage &amp; Uncontrolled Token Spend to Sovereign IP Capitalization &amp; Runtime Assurance</p>
+  </div>
+  <div class="header-badge">
+    <div class="badge-title">Value Migration Model</div>
+    <div class="badge-sub">CFO &bull; CIO &bull; Practice Director</div>
+  </div>
+</div>
+
+<!-- Matrix Grid -->
+<div class="matrix-grid">
+
+  <!-- Column 1: Legacy T&M / Headcount Model -->
+  <div class="value-col col-legacy">
+    <div class="col-header">
+      <span class="col-tag">Era 1: 2010 – 2023</span>
+      <div class="col-title">Legacy Effort Model</div>
+      <div class="col-subtitle">Headcount Arbitrage &amp; Manual Operations</div>
+    </div>
+    <div class="metrics-stack">
+      <div class="metric-card">
+        <div class="metric-label">Billing &amp; Commercial Metric</div>
+        <div class="metric-value-row">
+          <div class="metric-number">Time &amp; Materials</div>
+          <div class="metric-trend trend-down">Linear Scale</div>
+        </div>
+        <div class="metric-desc">Revenue tied strictly to billable hours, developer headcount, and utilization pyramids. Zero software leverage.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Core IT &amp; Architecture Speed</div>
+        <div class="metric-value-row">
+          <div class="metric-number">12–18 Months</div>
+          <div class="metric-trend trend-down">High Friction</div>
+        </div>
+        <div class="metric-desc">Custom application development from scratch with multi-year ROI horizons and heavy integration debt.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Risk &amp; Governance Posture</div>
+        <div class="metric-value-row">
+          <div class="metric-number">Manual Audits</div>
+          <div class="metric-trend trend-down">Episodic Checkpoints</div>
+        </div>
+        <div class="metric-desc">Static PDF compliance policies, human-checked spreadsheets, and reactive incident post-mortems.</div>
+      </div>
+    </div>
+    <div class="col-result">
+      RESULT: Margin compression, linear cost scaling, and unmonetized technical debt.
+    </div>
+  </div>
+
+  <!-- Column 2: Ungoverned GenAI / SaaS Agentic Trap -->
+  <div class="value-col col-traditional">
+    <div class="col-header">
+      <span class="col-tag">Era 2: 2023 – 2025</span>
+      <div class="col-title">Ungoverned GenAI Trap</div>
+      <div class="col-subtitle">SaaS Seat Inflation &amp; Raw Token Bleed</div>
+    </div>
+    <div class="metrics-stack">
+      <div class="metric-card">
+        <div class="metric-label">Commercial Value Capture</div>
+        <div class="metric-value-row">
+          <div class="metric-number">Double Taxation</div>
+          <div class="metric-trend trend-warn">Margin Leakage</div>
+        </div>
+        <div class="metric-desc">Paying base SaaS seat licenses plus unmonitored consumption fees (tokens/flex credits) for fragmented AI wrappers.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Deployment vs. Attrition Risk</div>
+        <div class="metric-value-row">
+          <div class="metric-number">&gt;40% Failure</div>
+          <div class="metric-trend trend-warn">Gartner Warning</div>
+        </div>
+        <div class="metric-desc">Over 40% of agentic projects canceled by 2027 due to FinOps cost overruns, "agentwashing," and non-deterministic loops.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Enterprise Data &amp; IP Moat</div>
+        <div class="metric-value-row">
+          <div class="metric-number">Vendor Lock-In</div>
+          <div class="metric-trend trend-warn">Zero Equity</div>
+        </div>
+        <div class="metric-desc">Business logic and proprietary institutional data trapped inside vendor black-box clouds and prompt templates.</div>
+      </div>
+    </div>
+    <div class="col-result">
+      RESULT: High license friction, runaway token spend, and uncontained operational risk.
+    </div>
+  </div>
+
+  <!-- Column 3: Sovereign Enterprise Control Plane -->
+  <div class="value-col col-sovereign">
+    <div class="col-header">
+      <span class="col-tag">Era 3: 2026 &amp; Beyond (Boardroom Standard)</span>
+      <div class="col-title">Sovereign Control Plane</div>
+      <div class="col-subtitle">Capitalized IP, 80/20 Routing &amp; Runtime Assurance</div>
+    </div>
+    <div class="metrics-stack">
+      <div class="metric-card">
+        <div class="metric-label">Commercial &amp; Financial Return</div>
+        <div class="metric-value-row">
+          <div class="metric-number">Earnings Quality</div>
+          <div class="metric-trend trend-up">+35% Margin Boost</div>
+        </div>
+        <div class="metric-desc">Capitalizing reusable domain ontologies, accelerators, and guardrails as balance-sheet IP rather than expensing effort.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Infrastructure Efficiency (FinOps)</div>
+        <div class="metric-value-row">
+          <div class="metric-number">80/20 SLM Routing</div>
+          <div class="metric-trend trend-up">Zero Token Bleed</div>
+        </div>
+        <div class="metric-desc">Routing 80% of routine workflows to private, low-cost Small Language Models; reserving frontier LLMs for complex reasoning.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Risk &amp; Governance Architecture</div>
+        <div class="metric-value-row">
+          <div class="metric-number">Policy-as-Code</div>
+          <div class="metric-trend trend-up">Zero-Trust Scale</div>
+        </div>
+        <div class="metric-desc">Continuous automated red-teaming, non-human identity RBAC, and financial blast-radius circuit breakers at runtime.</div>
+      </div>
+    </div>
+    <div class="col-result">
+      RESULT: Defensible IP moat, optimized unit economics, and 91% deployment velocity.
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom Value Summary Strip -->
+<div class="value-summary-strip">
+  <div class="vs-item">
+    <div class="vs-icon">&#9881;</div>
+    <div class="vs-text">
+      <strong>The Commercial Shift</strong>
+      Moving from effort-based billing and unmonitored token consumption to multi-tenant, co-owned enterprise IP accelerators.
+    </div>
+  </div>
+  <div class="vs-item">
+    <div class="vs-icon">&#128274;</div>
+    <div class="vs-text">
+      <strong>The Governance Baseline</strong>
+      Replacing static PDF policies with real-time Policy-as-Code, ISO 42001, and NIST AI RMF runtime assurance.
+    </div>
+  </div>
+  <div class="vs-item">
+    <div class="vs-icon">&#128640;</div>
+    <div class="vs-text">
+      <strong>The Boardroom Verdict</strong>
+      Architects who own the control plane protect P&amp;L margins, compress deployment cycles, and secure executive leadership.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

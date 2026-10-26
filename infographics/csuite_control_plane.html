@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, initial-scale=1.0">
+<title>The C-Suite Enterprise AI Control Plane</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 1920px;
+  height: 1080px;
+  background: #0B0F19;
+  color: #F8FAFC;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 36px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+/* Header */
+.header {
+  border-bottom: 2px solid #1E293B;
+  padding-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.header-left h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+.header-left h1 span {
+  color: #38BDF8;
+}
+.header-left p {
+  font-size: 14px;
+  color: #94A3B8;
+  margin-top: 5px;
+  font-weight: 500;
+}
+.header-badge {
+  background: #111827;
+  border: 1px solid #334155;
+  border-left: 4px solid #38BDF8;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-align: right;
+}
+.header-badge .badge-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #38BDF8;
+  font-weight: 700;
+}
+.header-badge .badge-sub {
+  font-size: 13px;
+  color: #E2E8F0;
+  font-weight: 600;
+  margin-top: 2px;
+}
+/* Executive KPI Strip */
+.kpi-strip {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+}
+.kpi-card {
+  flex: 1;
+  background: #111827;
+  border: 1px solid #1E293B;
+  border-top: 3px solid #64748B;
+  border-radius: 6px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.kpi-card.c1 { border-top-color: #38BDF8; }
+.kpi-card.c2 { border-top-color: #F59E0B; }
+.kpi-card.c3 { border-top-color: #10B981; }
+.kpi-card.c4 { border-top-color: #A855F7; }
+.kpi-val {
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+.kpi-card.c1 .kpi-val { color: #38BDF8; }
+.kpi-card.c2 .kpi-val { color: #FBBF24; }
+.kpi-card.c3 .kpi-val { color: #34D399; }
+.kpi-card.c4 .kpi-val { color: #C084FC; }
+.kpi-text {
+  font-size: 11px;
+  line-height: 1.35;
+  color: #CBD5E1;
+}
+.kpi-text strong {
+  color: #FFFFFF;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+/* Main Middle Grid */
+.main-grid {
+  display: flex;
+  gap: 18px;
+  align-items: stretch;
+  margin-top: 16px;
+  flex: 1;
+}
+/* Flank Columns */
+.flank-col {
+  width: 380px;
+  background: #111827;
+  border-radius: 8px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.flank-left {
+  border: 1.5px solid #6366F1;
+  background: linear-gradient(180deg, rgba(99,102,241,0.12) 0%, rgba(17,24,39,0.96) 100%);
+}
+.flank-right {
+  border: 1.5px solid #F97316;
+  background: linear-gradient(180deg, rgba(249,115,22,0.12) 0%, rgba(17,24,39,0.96) 100%);
+}
+.flank-header {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 10px;
+}
+.flank-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.flank-left .flank-tag { background: rgba(99,102,241,0.25); color: #A5B4FC; }
+.flank-right .flank-tag { background: rgba(249,115,22,0.25); color: #FDBA74; }
+.flank-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+.flank-vendors {
+  font-size: 11px;
+  color: #94A3B8;
+  margin-top: 4px;
+  font-weight: 600;
+}
+.flank-box {
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid #1E293B;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 8px;
+}
+.flank-box-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+.box-threat .flank-box-title { color: #F87171; }
+.box-play .flank-box-title { color: #CBD5E1; }
+.box-mandate {
+  border-left: 3px solid #38BDF8;
+  background: rgba(56, 189, 248, 0.08);
+}
+.box-mandate .flank-box-title { color: #38BDF8; }
+.flank-box ul {
+  list-style: none;
+  font-size: 11px;
+  color: #E2E8F0;
+  line-height: 1.4;
+}
+.flank-box ul li {
+  margin-bottom: 4px;
+  padding-left: 12px;
+  position: relative;
+}
+.flank-box ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #64748B;
+}
+/* Connectors */
+.connector-col {
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.conn-badge {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  background: #1E293B;
+  border: 1px solid #475569;
+  color: #E2E8F0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 12px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.conn-arrow {
+  font-size: 20px;
+  font-weight: 900;
+  color: #38BDF8;
+}
+/* Center Fortress */
+.center-fortress {
+  flex: 1;
+  background: linear-gradient(180deg, rgba(14,165,233,0.14) 0%, rgba(16,185,129,0.08) 100%);
+  border: 2.5px solid #0EA5E9;
+  border-radius: 10px;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0 30px rgba(14, 165, 233, 0.16);
+}
+.fortress-header {
+  text-align: center;
+  border-bottom: 1.5px solid rgba(56, 189, 248, 0.35);
+  padding-bottom: 10px;
+}
+.fortress-super {
+  font-size: 11px;
+  font-weight: 800;
+  color: #34D399;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+.fortress-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 0.6px;
+  margin-top: 3px;
+}
+.fortress-sub {
+  font-size: 11.5px;
+  color: #BAE6FD;
+  margin-top: 3px;
+  font-weight: 500;
+}
+.pillar-card {
+  background: rgba(11, 15, 25, 0.92);
+  border: 1px solid #334155;
+  border-radius: 7px;
+  padding: 11px 16px;
+}
+.pillar-cfo { border-left: 4px solid #38BDF8; }
+.pillar-ceo { border-left: 4px solid #A855F7; }
+.pillar-ciso { border-left: 4px solid #10B981; }
+.pillar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.pillar-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+.pillar-owner {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+.pillar-cfo .pillar-owner { background: rgba(56,189,248,0.2); color: #38BDF8; }
+.pillar-ceo .pillar-owner { background: rgba(168,85,247,0.2); color: #C084FC; }
+.pillar-ciso .pillar-owner { background: rgba(16,185,129,0.2); color: #34D399; }
+.pillar-chips {
+  display: flex;
+  gap: 10px;
+}
+.chip {
+  flex: 1;
+  background: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 5px;
+  padding: 8px 10px;
+}
+.chip-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin-bottom: 3px;
+}
+.chip-desc {
+  font-size: 9.8px;
+  color: #94A3B8;
+  line-height: 1.3;
+}
+.compliance-bar {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: 5px;
+  padding: 7px 12px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #A7F3D0;
+  letter-spacing: 0.5px;
+}
+/* Bottom Section */
+.bottom-section {
+  margin-top: 14px;
+  background: linear-gradient(90deg, rgba(16,185,129,0.14) 0%, rgba(17,24,39,0.96) 50%, rgba(16,185,129,0.14) 100%);
+  border: 1.5px solid #10B981;
+  border-radius: 8px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.bottom-left {
+  width: 380px;
+}
+.bottom-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(16,185,129,0.25);
+  color: #6EE7B7;
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+.bottom-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+.bottom-sub {
+  font-size: 10.5px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+.bottom-cards {
+  flex: 1;
+  display: flex;
+  gap: 14px;
+}
+.b-card {
+  flex: 1;
+  background: rgba(11, 15, 25, 0.9);
+  border: 1px solid #1E293B;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.b-card-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #34D399;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.b-card-desc {
+  font-size: 10px;
+  color: #E2E8F0;
+  line-height: 1.35;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>THE C-SUITE <span>ENTERPRISE AI CONTROL PLANE</span></h1>
+    <p>Boardroom Operating Model: Decoupling Earnings Quality &amp; Institutional IP from Frontier Model Volatility, SaaS Seat Inflation, and SI Effort Arbitrage</p>
+  </div>
+  <div class="header-badge">
+    <div class="badge-title">Executive Mandate</div>
+    <div class="badge-sub">CXO &bull; Practice Director &bull; Principal Architect</div>
+  </div>
+</div>
+
+<!-- Executive KPI Strip -->
+<div class="kpi-strip">
+  <div class="kpi-card c1">
+    <div class="kpi-val">91%</div>
+    <div class="kpi-text"><strong>CXO Buy-vs-Build Driver (EY)</strong>Deployment speed dictates vendor selection; reusable IP beats custom builds.</div>
+  </div>
+  <div class="kpi-card c2">
+    <div class="kpi-val">&gt;40%</div>
+    <div class="kpi-text"><strong>Agentic Attrition Risk (Gartner)</strong>Projects canceled by 2027 due to FinOps cost overruns &amp; weak risk controls.</div>
+  </div>
+  <div class="kpi-card c3">
+    <div class="kpi-val">3–5%</div>
+    <div class="kpi-text"><strong>Contract Renewal Deflation</strong>Procurement demands AI pass-backs; shifts spend from T&amp;M headcount to IP.</div>
+  </div>
+  <div class="kpi-card c4">
+    <div class="kpi-val">71%</div>
+    <div class="kpi-text"><strong>C-Suite Tech Proliferation (Deloitte)</strong>Enterprises with 5+ tech chiefs require a single unified governance control plane.</div>
+  </div>
+</div>
+
+<!-- Main Middle Section -->
+<div class="main-grid">
+
+  <!-- Left Flank: Frontier AI Labs -->
+  <div class="flank-col flank-left">
+    <div class="flank-header">
+      <span class="flank-tag">External Supply Layer</span>
+      <div class="flank-title">FRONTIER AI LABS &amp; HYPERSCALERS</div>
+      <div class="flank-vendors">OpenAI &bull; Anthropic &bull; Mistral &bull; Cloud AI</div>
+    </div>
+    <div class="flank-box box-play">
+      <div class="flank-box-title">Commercial Play</div>
+      <ul>
+        <li>Bypass SaaS UIs &amp; SIs with direct headless agentic plugins (e.g., Claude Cowork).</li>
+        <li>Monetize directly via raw token inference volume &amp; context-window lock-in.</li>
+      </ul>
+    </div>
+    <div class="flank-box box-threat">
+      <div class="flank-box-title">P&amp;L &amp; Governance Risk</div>
+      <ul>
+        <li><strong>Bipolar Reliability:</strong> Olympiad reasoning paired with non-deterministic failure cascades.</li>
+        <li><strong>FinOps Bleed:</strong> Routing routine enterprise tasks to frontier models destroys unit margin.</li>
+      </ul>
+    </div>
+    <div class="flank-box box-mandate">
+      <div class="flank-box-title">C-Suite Counter-Strategy</div>
+      <ul>
+        <li>Treat frontier models as <strong>replaceable, metered commodities</strong> behind an internal router.</li>
+        <li>Never embed proprietary business rules inside vendor prompt templates.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Left Connector -->
+  <div class="connector-col">
+    <div class="conn-arrow">&#8644;</div>
+    <div class="conn-badge">Metered Utility API</div>
+    <div class="conn-arrow">&#8644;</div>
+  </div>
+
+  <!-- Center Fortress: Sovereign Enterprise Control Plane -->
+  <div class="center-fortress">
+    <div class="fortress-header">
+      <div class="fortress-super">The Defensible Enterprise Balance Sheet Moat</div>
+      <div class="fortress-title">NEUTRAL ENTERPRISE CONTROL PLANE</div>
+      <div class="fortress-sub">Owned by the Enterprise &bull; Vendor-Agnostic &bull; Capitalized as Reusable Multi-Tenant IP</div>
+    </div>
+
+    <!-- Pillar 1: CFO -->
+    <div class="pillar-card pillar-cfo">
+      <div class="pillar-top">
+        <div class="pillar-name">1. AI FinOps &amp; Sovereign Intelligence Arbitrage</div>
+        <div class="pillar-owner">CFO &amp; CIO Mandate: Earnings Quality</div>
+      </div>
+      <div class="pillar-chips">
+        <div class="chip">
+          <div class="chip-title">80/20 SLM Routing</div>
+          <div class="chip-desc">Route 80% of domain tasks to private Small Language Models; reserve frontier LLMs for complex reasoning.</div>
+        </div>
+        <div class="chip">
+          <div class="chip-title">Token Cost Circuit Breakers</div>
+          <div class="chip-desc">Enforce hard unit-cost thresholds per workflow to prevent runaway agentic loop expenditure.</div>
+        </div>
+        <div class="chip">
+          <div class="chip-title">Zero Vendor Lock-In</div>
+          <div class="chip-desc">Hot-swap OpenAI, Anthropic, Mistral, or open-weights in hours without rewriting core workflows.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pillar 2: CEO / Director -->
+    <div class="pillar-card pillar-ceo">
+      <div class="pillar-top">
+        <div class="pillar-name">2. Capitalized Context Graph &amp; Decision Architecture</div>
+        <div class="pillar-owner">CEO, COO &amp; Director Mandate: IP Capitalization</div>
+      </div>
+      <div class="pillar-chips">
+        <div class="chip">
+          <div class="chip-title">Proprietary Context Graph</div>
+          <div class="chip-desc">Codify enterprise ontologies, tax/risk/supply-chain rules, and institutional memory on-premise.</div>
+        </div>
+        <div class="chip">
+          <div class="chip-title">Cross-Silo Agent Orchestration</div>
+          <div class="chip-desc">Coordinate multi-agent execution across ERP, CRM, and mainframe boundaries outside SaaS silos.</div>
+        </div>
+        <div class="chip">
+          <div class="chip-title">Decision Rights &amp; Escalation</div>
+          <div class="chip-desc">Re-architect processes around pre-coded thresholds and financial blast-radius human checkpoints.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pillar 3: CISO / CRO -->
+    <div class="pillar-card pillar-ciso">
+      <div class="pillar-top">
+        <div class="pillar-name">3. Runtime Assurance &amp; Blast-Radius Containment</div>
+        <div class="pillar-owner">CISO, CRO &amp; Board Audit Mandate: Zero-Trust Risk</div>
+      </div>
+      <div class="pillar-chips">
+        <div class="chip">
+          <div class="chip-title">Policy-as-Code Guardrails</div>
+          <div class="chip-desc">Real-time input/output rails, PII air-gapping, and continuous automated red-teaming at runtime.</div>
+        </div>
+        <div class="chip">
+          <div class="chip-title">Non-Human Identity Governance</div>
+          <div class="chip-desc">Treat every autonomous agent as a scoped identity with least-privilege RBAC and kill-switches.</div>
+        </div>
+        <div class="chip">
+          <div class="chip-title">Cross-Model Verification</div>
+          <div class="chip-desc">Enforce secondary auditor agents to validate high-impact state mutations before database commit.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compliance-bar">
+      CONTINUOUS BOARDROOM AUDIT &amp; REGULATORY ALIGNMENT: ISO/IEC 42001 &bull; NIST AI RMF &bull; MITRE ATLAS &bull; EU AI ACT / DPDP
+    </div>
+  </div>
+
+  <!-- Right Connector -->
+  <div class="connector-col">
+    <div class="conn-arrow">&#8644;</div>
+    <div class="conn-badge">Headless CRUD APIs</div>
+    <div class="conn-arrow">&#8644;</div>
+  </div>
+
+  <!-- Right Flank: SaaS Walled Gardens -->
+  <div class="flank-col flank-right">
+    <div class="flank-header">
+      <span class="flank-tag">System of Record Layer</span>
+      <div class="flank-title">SAAS INCUMBENTS &amp; WALLED GARDENS</div>
+      <div class="flank-vendors">Salesforce &bull; ServiceNow &bull; Workday &bull; SAP</div>
+    </div>
+    <div class="flank-box box-play">
+      <div class="flank-box-title">Commercial Play</div>
+      <ul>
+        <li>Defend declining human seat licenses by pivoting to metered "Agentic Work Units" &amp; Flex Credits.</li>
+        <li>Position proprietary control towers (Agentforce, Otto) as the enterprise brain.</li>
+      </ul>
+    </div>
+    <div class="flank-box box-threat">
+      <div class="flank-box-title">P&amp;L &amp; Governance Risk</div>
+      <ul>
+        <li><strong>Double Taxation:</strong> Paying base SaaS seat licenses plus premium consumption fees per agent action.</li>
+        <li><strong>Fragmented Agency:</strong> CRM agents cannot natively govern ERP or custom legacy workflows.</li>
+      </ul>
+    </div>
+    <div class="flank-box box-mandate">
+      <div class="flank-box-title">C-Suite Counter-Strategy</div>
+      <ul>
+        <li>Demote SaaS platforms to <strong>passive databases / Systems of Record</strong> accessed via headless APIs.</li>
+        <li>Refuse to trap cross-functional business logic inside single-vendor clouds.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom Section: GSI & Consulting Ecosystem -->
+<div class="bottom-section">
+  <div class="bottom-left">
+    <span class="bottom-tag">Execution &amp; Modernization Layer</span>
+    <div class="bottom-title">GLOBAL SYSTEM INTEGRATORS &amp; BIG 4</div>
+    <div class="bottom-sub">HCLTech (AI Force) &bull; TCS (WisdomNext) &bull; Infosys (Topaz) &bull; EY / Accenture / Deloitte / PwC</div>
+  </div>
+  <div class="bottom-cards">
+    <div class="b-card">
+      <div class="b-card-title">1. Commercial Tension: End of Effort Billing</div>
+      <div class="b-card-desc">GSIs face 3–5% renewal deflation as clients reject linear headcount pyramids. Winners pivot to reusable IP accelerators and outcome-based contracting.</div>
+    </div>
+    <div class="b-card">
+      <div class="b-card-title">2. Enterprise Leverage: The 70% Legacy Core</div>
+      <div class="b-card-desc">70% of Fortune 500 core architecture is 20+ years old. Frontier labs cannot wire agents into air-gapped mainframes without industrial SI integration.</div>
+    </div>
+    <div class="b-card">
+      <div class="b-card-title">3. C-Suite Contracting Rule: Co-Owned IP</div>
+      <div class="b-card-desc">Mandate that SI accelerators deploy inside <strong>your</strong> Neutral Control Plane—capitalizing ontologies and guardrails on your balance sheet, not theirs.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
